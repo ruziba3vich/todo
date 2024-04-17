@@ -15,7 +15,7 @@ func Authenticate(username, password string, db *sql.DB) (string, error) {
 	if err != nil {
 		return "", errors.New("user is not found")
 	}
-
+	
 	if !authentication.CheckPassword(password, user.Password) {
 		return "", errors.New("password did not match")
 	}

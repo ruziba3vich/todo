@@ -9,7 +9,7 @@ import (
 )
 
 func Register(user models.User, db *sql.DB) (string, error) {
-	user.ID = uuid.New()
+	user.ID = uuid.NewString()
 	query := "INSERT INTO users(id, username, password) VALUES ($1, $2, $3);"
 	var erro error
 	user.Password, erro = authentication.HashPassword(user.Password)

@@ -7,12 +7,14 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
+	"github.com/ruziba3vich/todoGo/internal/handlers"
 )
 
 func main() {
 	router := gin.Default()
 
-	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", "localhost", 5432, "postgres", "Dost0n1k", "book")
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", "localhost", 5432, "postgres", "Dost0n1k", "todo")
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		PrintError(err)
@@ -33,6 +35,18 @@ func main() {
 			PrintError(err)
 		}
 	}
+
+	router.POST("users/register", func(c *gin.Context) {
+		handlers.Register(c, db)
+	})
+
+	router.POST("users/authorize", func(c *gin.Context) {
+		handlers.Authorize(c, db)
+	})
+
+	router.POST("users/create-task", func(c *gin.Context) {
+		handlers.CreateTask(c, db)
+	})
 
 	address := "localhost:7777"
 	log.Println("Server is listening on", address)
