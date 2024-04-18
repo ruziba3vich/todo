@@ -9,9 +9,9 @@ import (
 )
 
 func main() {
-	sourceFileName := "rawdata.txt"
+	sourceFileName := "uy_ishi/abduazim.txt"
 
-	sourceFile, err := os.Open(sourceFileName)
+	sourceFile, err := os.OpenFile(sourceFileName, os.O_RDONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Println("Error opening source file:", err)
 		return
