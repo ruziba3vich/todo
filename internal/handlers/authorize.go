@@ -38,5 +38,5 @@ func Authorize(c *gin.Context, db *sql.DB) {
 		return
 	}
 
-	c.JSON(http.StatusAccepted, newToken)
+	c.JSON(http.StatusAccepted, gin.H{"token": newToken})
 }
